@@ -1,0 +1,17 @@
+{% extends 'bootstrap/base.html' %}
+
+
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+{% endblock %}
+
+{% block title %}
+    {% if title %}
+        {{ title }} - Pomodoro
+    {% else %}
+        Welcome to Pomodoro
+    {% endif %}
+{% endblock %}
+
