@@ -1,3 +1,6 @@
+from . import db
+
+
 class User:
     '''
     Class to define user
@@ -9,3 +12,6 @@ class User:
         self.lastName = lastName
         self.email = email
         self.password = password
+
+            
+        
