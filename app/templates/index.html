@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 
+{% block navbar %}
+{% include 'navbar.html' %}
+{% endblock %}
+
 {% block app_context %}
     <!-- app contexts -->
     <div class="jumbotron text-center">
@@ -9,11 +13,8 @@
         <p>It is a simple as schedule, get notified when it is time for break and start timer.</p>
         <a class="btn btn-lg" href="#" role="button">Timer</a>
     </div>
-
+    {% include 'timer.html' %}
     
 {% endblock %}
 
-<!-- {% block scripts %}
-    <script type="text/javascript" src="static/js/timer.js"></script>
-{% endblock %} -->
 
