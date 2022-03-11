@@ -1,51 +1,55 @@
-from app.auth import auth
-from flask import render_template, flash, redirect, url_for
-# from app import db
-from app.auth.forms import LoginForm, SignupForm
-from flask_login import current_user, login_user,logout_user
-from app.models import User
+from flask import render_template, request
+from . import auth
+from werkzeug.security import generate_password_hash,check_password_hash
+from flask import render_template,redirect,url_for
+from ..models import registration
+from .. import db
+from flask import flash,request 
+from flask_login import login_user, current_user
+from flask_login import login_required,logout_user
+from ..email import mail_message
 
+# registration route from content's Flask Login
 
-@auth.route('/login', methods=['GET','POST'])
+@auth.route('/login', methods = ['POST','GET'])
 def login():
-    
-    if current_user.is_authenticated:
+    if request.method == 'POST':
+        useremail = request.form['usernames']
+        passwords = request.form['userpassword']
+        getuser = registration.query.filter_by(useremail = useremail).first()
+        if getuser:
+            passwordget = getuser.password
+            passhash = check_password_hash(passwordget,passwords)
+            if passhash:
+                login_user(getuser, remember = True)
+                return redirect(request.args.get('next') or url_for('root.dashboard'))
+               
+            else:
+                flash("Wrong password, please try again!")
+                return redirect(url_for('auth.login'))
         
-        return redirect(url_for('main.index'))
-    form = LoginForm()
-    if form.validate_on_submit():
-        
-        user = User.query.filter_by(username=form.username.data).first()
-        if user is None or not user.check_password(form.password.data):
-            
-            flash('Invalid username or password')
+        else:
+            flash("user with this username dont exist")
             return redirect(url_for('auth.login'))
-        login_user(user, remember=form.remember_me.data)
-        flash('You are logged in succesfully')
-        return redirect(url_for('main.index'))
-    title = "LogIn"
-    return render_template('auth/login.html', title=title, form=form )
+    return render_template('auth/login.html')
 
-@bp.route('/signup', methods=['GET', 'POST'])
+
+
+@auth.route('/signup', methods = ['POST','GET'])
 def signup():
-    
-    if current_user.is_authenticated:
-        
-        return redirect(url_for('main.index'))
-    form = SignupForm()
-    if form.validate_on_submit():
-        user = User(username=form.username.data, email=form.email.data, password_hash=form.password.data)
-        
-        user.set_password(form.password.data) #handles password hashing
-        db.session.add(user)
-        db.session.commit()
-        flash('Congratulatons you are now a registered user')
-        return redirect('login')
-    return render_template('auth/signup.html', title="Register", form=form)
-
-
-# @bp.route('/logout')
-# def logout():
-    
-#     logout_user()
-#     return redirect(url_for('main.index'))
+    if request.method == 'POST':
+        usernames = request.form['username']
+        useremails = request.form['useremails']
+        passwords = request.form['password']
+        # send email
+        checkexist = registration.query.filter_by(useremail = useremails).first()
+        if checkexist:
+            flash("useremail already exist, please pick another one")
+            return redirect (request.referrer)
+        else:
+            passhashs = generate_password_hash(passwords)
+            sends = registration(username = usernames, useremail = useremails, password = passhashs)
+            db.session.add(sends)
+            db.session.commit()
+            return redirect(url_for('auth.login'))
+    return render_template('auth/signup.html')

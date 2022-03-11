@@ -1,20 +1,53 @@
-{% extends "base.html" %}
-{% import 'bootstrap/wtf.html' as wtf %}
+{%  extends 'auth/baze.html' %}
+{% block title %}
 
-{% block app_context %}
-    <div class="row">
-        <div class="col-md-3">
-            <!-- Empty div -->
+{% endblock %}
+
+
+{% block styles%}
+{{ super() }}
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"> -->
+<!-- <link rel="stylesheet" href="{{url_for('static',filename='index.css')}}"> -->
+{% endblock %}
+
+{% block body %}
+
+{% block content %}
+<div class="content">
+    <form action="/auth/login" method="post" class="log">
+        <h3 style="text-align: center;">Sign-In</h3>
+        <p style="text-align: center;">Welcome back, login to proceed</p>
+        <div class="results" style="text-align: center; color: red;">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul class=flashes>
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+            {% endwith %}
         </div>
-        <div class="col-md-6">
-            <h1 class="text-center">Log in</h1>
-            <p>
-                {{ wtf.quick_form(form) }}
-            </p>
-            <p>New here? Create your account <a href="{{ url_for('auth.signup')}}">signup</a></p>
-        </div>
-        <div class="col-md-3">
-            <!-- Empty div -->
-        </div>
-    </div>
+       <input type="email" name="usernames" autocomplete="off" id="usernames" placeholder="Enter useremail" required>
+       <input type="password" name="userpassword" autocomplete="off" id="userpassword" placeholder="Enter password" required>
+       <div class="linkls">
+           <a href="/auth/signup">Don't have an account?</a>
+       </div>
+       <input id="but" type="submit" value="Sign-In">
+    </form>
+</div>
+<div class="about">
+    <h2>About</h2>
+    <p>
+        This app is built to allow a user submit their one minute pitches, which will be voted on by 
+        other users and also commented on. The pitches are organized by category and you can also vote
+         on others' pitches. <br>
+         Signup/Login above to navigate the app. 
+    </p>
+</div>
+
+<hr>
+
+
+{% endblock %}
 {% endblock %}
