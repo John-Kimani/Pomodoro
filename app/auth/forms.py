@@ -4,12 +4,10 @@ from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationE
 from app.models import User
 
 class LoginForm(FlaskForm):
-    '''
-    Class that handles user sign in
-    '''
+    
     username = StringField('Username', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
-    remember_me = BooleanField('Remember Me')
+    # remember_me = BooleanField('Remember Me')
     submit = SubmitField('Sign In')
 
 class SignupForm(FlaskForm):

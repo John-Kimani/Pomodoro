@@ -1,17 +1,17 @@
-# Blue Chip Pitch App
+# Pomodoro App
 Blue Chip is a pitch web application.
-This application enables user/(s) to create accounts so that they can post their impressions. Users must login in order to view other pitch categories.
+A simple Pomodoro Timer app that works on a desktop & mobile browser
 # App screenshot
-![Blue Chip]()
+![Pomodoro App]()
 ## Installation
 Guide to install Horizon News application:
 ### Clone this repository
 ```bash
- git clone https://github.com/John-Kimani/Blue_Chip_Pitch_App.git
+ git clone https://github.com/John-Kimani/Pomodoro.git
 ```
 * Move into the cloned directory:
 ```bash
-cd BLUE_CHIP_PITCH_APP
+cd POMODORO_APP
 ```
 * Create and activate your virtual environment:
 ```bash
@@ -40,23 +40,15 @@ mkvirtualenv virtual
 (Virtual)$ python3 bluechip.py
 ```
 ## Features and BDD
-- Users are able to create user profile and login to their profiles.
+- Users are able to manage their time and let gives them focus on any tasks         
 ## Technology Used
 **Framework:** Flask
 **Language** Python
 ### Developed with
 **Structure:** Bootstrap, HTML
 **Styles:** CSS
-## Author
-* Design and developed by: [John Kimani](https://github.com/John-Kimani)
+## Authors
 John Kimani
-Underpromises but over-delivers ||
-Apples and more apples
-Company
-@moringaschool Fellow
-Location
-Nairobi, Kenya.
-Repositories
-31
-Followers
-39
+Imelda Wade
+* *MIT [License](/LICENSE)*
+* Copyright (c) 2022 ** Imelda Wade ** 
