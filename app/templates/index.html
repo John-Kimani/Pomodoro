@@ -9,4 +9,11 @@
         <p>It is a simple as schedule, get notified when it is time for break and start timer.</p>
         <a class="btn btn-primary btn-lg" href="#" role="button">Timer</a>
     </div>
+
+    <p class="timer">Hello</p>
 {% endblock %}
+
+{% block scripts %}
+    <script type="text/javascript" src="{{ url_for('static', filename='timer.js')}}"></script>
+{% endblock %}
+
